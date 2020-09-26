@@ -2,13 +2,17 @@
 
 namespace ZnYii\Base\Db;
 
-use Yii;
-use yii\rbac\Item;
+use Illuminate\Container\Container;
+use yii\caching\CacheInterface;
+use yii\db\Connection;
 use ZnCore\Base\Exceptions\NotFoundException;
 use ZnCore\Base\Helpers\EnumHelper;
 use ZnCore\Db\Fixture\Libs\FixtureInterface;
+use ZnSandbox\Sandbox\YiiRbac\DbManager;
+use ZnSandbox\Sandbox\YiiRbac\Item;
 use ZnYii\App\BootstrapYii;
 use ZnYii\App\Enums\AppTypeEnum;
+use Yii;
 
 abstract class RbacFixture implements FixtureInterface
 {
@@ -17,8 +21,8 @@ abstract class RbacFixture implements FixtureInterface
 
     public function __construct()
     {
-        BootstrapYii::init('console', AppTypeEnum::CONSOLE);
-        $this->authManager = Yii::$app->authManager;
+        $app = BootstrapYii::init('console', AppTypeEnum::CONSOLE);
+        $this->authManager = new DbManager($app->db, $app->cache);
     }
 
     public function deps()
@@ -87,6 +91,9 @@ abstract class RbacFixture implements FixtureInterface
 
     protected function getItem(string $name): Item
     {
+        if ($name == '') {
+            throw new \InvalidArgumentException('Empty item name!');
+        }
         $item = $this->authManager->getRole($name) ?? $this->authManager->getPermission($name);
         if ($item == null) {
             throw new NotFoundException('RBAC item "' . $name . '" not found!');
