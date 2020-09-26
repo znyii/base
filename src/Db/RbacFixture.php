@@ -2,17 +2,14 @@
 
 namespace ZnYii\Base\Db;
 
-use Illuminate\Container\Container;
-use yii\caching\CacheInterface;
-use yii\db\Connection;
 use ZnCore\Base\Exceptions\NotFoundException;
 use ZnCore\Base\Helpers\EnumHelper;
 use ZnCore\Db\Fixture\Libs\FixtureInterface;
 use ZnSandbox\Sandbox\YiiRbac\DbManager;
 use ZnSandbox\Sandbox\YiiRbac\Item;
+use ZnSandbox\Sandbox\YiiRbac\PhpManager;
 use ZnYii\App\BootstrapYii;
 use ZnYii\App\Enums\AppTypeEnum;
-use Yii;
 
 abstract class RbacFixture implements FixtureInterface
 {
@@ -23,6 +20,7 @@ abstract class RbacFixture implements FixtureInterface
     {
         $app = BootstrapYii::init('console', AppTypeEnum::CONSOLE);
         $this->authManager = new DbManager($app->db, $app->cache);
+        //$this->authManager = new PhpManager();
     }
 
     public function deps()
