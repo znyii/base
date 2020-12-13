@@ -19,7 +19,8 @@ abstract class BaseForm extends Model
     }
 
     public function translateAliases(): array
-    {
+    {/** @var BaseForm $model */
+        $model = Container::getInstance()->get($this->formClass);
         return [];
     }
 

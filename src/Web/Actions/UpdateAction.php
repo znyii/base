@@ -2,6 +2,7 @@
 
 namespace ZnYii\Base\Web\Actions;
 
+use Illuminate\Container\Container;
 use ZnCore\Base\Legacy\Yii\Helpers\Inflector;
 use ZnCore\Domain\Exceptions\UnprocessibleEntityException;
 use ZnCore\Domain\Helpers\EntityHelper;
@@ -9,6 +10,9 @@ use ZnCore\Domain\Interfaces\Entity\EntityIdInterface;
 use ZnCore\Domain\Libs\Query;
 use ZnLib\Web\Yii2\Widgets\Toastr\widgets\Alert;
 use Yii;
+use ZnYii\Base\Forms\BaseForm;
+use ZnYii\Base\Helpers\FormHelper;
+use ZnYii\Base\Helpers\UnprocessibleErrorHelper;
 
 class UpdateAction extends BaseFormAction
 {
@@ -16,22 +20,24 @@ class UpdateAction extends BaseFormAction
     public function run(int $id)
     {
         $entity = $this->readOne($id);
-
-        $data = EntityHelper::toArrayForTablize($entity);
-
-
 //        $this->runCallback();
-        $model = $this->createForm($data);
+        /** @var BaseForm $model */
+        $model = Container::getInstance()->get($this->formClass);
         if (Yii::$app->request->isPost) {
+            $postData = Yii::$app->request->post($model->formName());
+            FormHelper::setAttributes($model, $postData);
             try {
-                $this->service->updateById($id, $this->extractAttributesForEntity($model->toArray()));
+                $this->service->updateById($id, FormHelper::extractAttributesForEntity($model, $this->entityClass));
                 Alert::create($this->getSuccessMessage(), Alert::TYPE_SUCCESS);
                 return $this->redirect($this->successRedirectUrl);
             } catch (UnprocessibleEntityException $e) {
-                $errors = $this->setErrorsToModel($model, $e->getErrorCollection());
+                $errors = FormHelper::setErrorsToModel($model, $e->getErrorCollection());
                 $errorMessage = implode('<br/>', $errors);
                 Alert::create($errorMessage, Alert::TYPE_WARNING);
             }
+        } else {
+            $data = EntityHelper::toArrayForTablize($entity);
+            FormHelper::setAttributes($model, $data);
         }
         return $this->render('update', [
             'model' => $model,

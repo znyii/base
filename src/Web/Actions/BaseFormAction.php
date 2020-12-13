@@ -20,7 +20,7 @@ abstract class BaseFormAction extends BaseAction
     protected $formClass;
     protected $entityClass;
     protected $successMessage;
-    protected $successMessageKey = 'create_success';
+    protected $successMessageKey;
     protected $successRedirectUrl;
 
     public function setWith(array $with)
@@ -56,39 +56,5 @@ abstract class BaseFormAction extends BaseAction
     public function setSuccessRedirectUrl(array $successRedirectUrl): void
     {
         $this->successRedirectUrl = $successRedirectUrl;
-    }
-
-    protected function setErrorsToModel(Model $model, Collection $errorCollection): array
-    {
-        $errors = [];
-        foreach ($errorCollection as $errorEntity) {
-            $fieldSnackCase = Inflector::underscore($errorEntity->getField());
-            $model->addError($fieldSnackCase, $errorEntity->getMessage());
-            $errors[] = $model->translateAttribute($fieldSnackCase) . ':' . $errorEntity->getMessage();
-        }
-        return $errors;
-    }
-
-    protected function createForm(array $data = []): BaseForm
-    {
-        /** @var Model $model */
-        $model = Container::getInstance()->get($this->formClass);
-        if (Yii::$app->request->isPost) {
-            $data = Yii::$app->request->post($model->formName());
-        }
-        $attributes = $model->attributes();
-        $data = ArrayHelper::filter($data, $attributes);
-        ClassHelper::configure($model, $data);
-        return $model;
-    }
-
-    protected function extractAttributesForEntity(array $data): array
-    {
-        $entityClass = $this->entityClass;
-        $attributes = EntityHelper::getAttributeNames(new $entityClass);
-        $attributes = array_map([Inflector::class, 'underscore'], $attributes);
-        $data = ArrayHelper::filter($data, $attributes);
-        $data = ArrayHelper::removeEmptyItems($data);
-        return $data;
     }
 }
