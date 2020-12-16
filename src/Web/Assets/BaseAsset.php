@@ -10,7 +10,7 @@ abstract class BaseAsset extends AssetBundle
     public function init()
     {
         parent::init();
-        if(YII_DEBUG) {
+        if(YII_DEBUG && $_ENV['YII_ASSET_FORCE_COPY']) {
             $this->publishOptions['forceCopy'] = true;
         }
     }
