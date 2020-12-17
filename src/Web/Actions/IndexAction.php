@@ -29,6 +29,7 @@ class IndexAction extends BaseAction
         $dataProvider = $this->service->getDataProvider($query);
         $this->runCallback([$dataProvider]);
         return $this->render('index', [
+            'request' => Yii::$app->request,
             'dataProvider' => $dataProvider,
             'queryParams' => Yii::$app->request->get(),
         ]);

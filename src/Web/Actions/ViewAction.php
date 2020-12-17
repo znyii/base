@@ -25,6 +25,7 @@ class ViewAction extends BaseAction
         $entity = $this->service->oneById($id, $query);
         $this->runCallback([$entity]);
         return $this->render('view', [
+            'request' => Yii::$app->request,
             'entity' => $entity,
         ]);
     }

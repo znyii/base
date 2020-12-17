@@ -40,6 +40,7 @@ class UpdateAction extends BaseFormAction
             FormHelper::setAttributes($model, $data);
         }
         return $this->render('update', [
+            'request' => Yii::$app->request,
             'model' => $model,
         ]);
     }

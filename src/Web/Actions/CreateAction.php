@@ -32,6 +32,7 @@ class CreateAction extends BaseFormAction
             }
         }
         return $this->render('create', [
+            'request' => Yii::$app->request,
             'model' => $model,
         ]);
     }
