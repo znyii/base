@@ -41,13 +41,13 @@ abstract class BaseController extends Controller
             'create' => [
                 'class' => CreateAction::class,
                 'service' => $this->service,
-                'successMessage' => ['app', 'message.create_success'],
+                'successMessage' => ['web', 'message.create_success'],
 //                'i18NextConfig' => $this->i18NextConfig(),
                 'successRedirectUrl' => [$this->baseUri],
                 'formClass' => $this->formClass,
                 'entityClass' => $this->entityClass,
                 'callback' => function () {
-                    $this->breadcrumbWidget->add(I18Next::t('app', 'action.create'), Url::to([$this->baseUri . '/create']));
+                    $this->breadcrumbWidget->add(I18Next::t('core', 'action.create'), Url::to([$this->baseUri . '/create']));
                 }
             ],
             'view' => [
@@ -55,27 +55,27 @@ abstract class BaseController extends Controller
                 'service' => $this->service,
                 'with' => $this->with(),
                 'callback' => function (EntityIdInterface $entity) {
-                    $this->breadcrumbWidget->add(I18Next::t('app', 'action.view'), Url::to([$this->baseUri . '/view', 'id' => $entity->getId()]));
+                    $this->breadcrumbWidget->add(I18Next::t('core', 'action.view'), Url::to([$this->baseUri . '/view', 'id' => $entity->getId()]));
                 }
             ],
             'update' => [
                 'class' => UpdateAction::class,
                 'service' => $this->service,
                 'with' => $this->with(),
-                'successMessage' => ['app', 'message.update_success'],
+                'successMessage' => ['web', 'message.update_success'],
 //                'i18NextConfig' => $this->i18NextConfig(),
                 'successRedirectUrl' => [$this->baseUri],
                 'formClass' => $this->formClass,
                 'entityClass' => $this->entityClass,
                 'callback' => function (EntityIdInterface $entity) {
 //                    $this->breadcrumbWidget->add($entity->getTitle(), Url::to([$this->baseUri . '/view', 'id' => $entity->getId()]));
-                    $this->breadcrumbWidget->add(I18Next::t('app', 'action.update'), Url::to([$this->baseUri . '/update', 'id' => $entity->getId()]));
+                    $this->breadcrumbWidget->add(I18Next::t('core', 'action.update'), Url::to([$this->baseUri . '/update', 'id' => $entity->getId()]));
                 }
             ],
             'delete' => [
                 'class' => DeleteAction::class,
                 'service' => $this->service,
-                'successMessage' => ['app', 'message.delete_success'],
+                'successMessage' => ['web', 'message.delete_success'],
                 'successRedirectUrl' => [$this->baseUri],
 //                'i18NextConfig' => $this->i18NextConfig(),
             ],
