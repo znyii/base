@@ -11,26 +11,28 @@ class LoginRequired extends Component
 
     public function init()
     {
-        if ( ! Yii::$app->user->isGuest) {
+        if (!Yii::$app->user->isGuest) {
             return;
         }
         $currentUri = $this->getCurrentUrl();
-        $loginUrl = Yii::$app->user->loginUrl[0];
+        $loginUrl = $this->getAuthUrl();
         if ($currentUri == $loginUrl) {
             return;
         }
         $this->redirect();
-        /*foreach ($this->ignoreUrls as $url) {
-            if (strpos($currentUri, $url) !== 0) {
-                $this->redirect();
-            }
-        }*/
         parent::init();
+    }
+
+    private function getAuthUrl(): string
+    {
+        $uri = Url::to(Yii::$app->user->loginUrl);
+        $uri = trim($uri, '/');
+        return $uri;
     }
 
     private function getCurrentUrl(): string
     {
-        $uri = str_replace(Url::base(), '', Yii::$app->request->url);
+        $uri = Yii::$app->request->url;
         $uri = trim($uri, '/');
         return $uri;
     }
