@@ -21,7 +21,7 @@ class IndexAction extends BaseAction
     {
         $this->filterModel = $filterModel;
     }
-    
+
     public function setWith(array $with)
     {
         $this->with = $with;
@@ -37,22 +37,19 @@ class IndexAction extends BaseAction
         $query = QueryHelper::getAllParams(Yii::$app->request->get());
         $query->with($this->with);
         $query->addOrderBy($this->sort);
-        if($this->service instanceof ServiceDataProviderByFilterInterface) {
-            $filterModel = new $this->filterModel;
-            $whereParams = $query->getParam(Query::WHERE);
-            $filterAttributes = ArrayHelper::getValue($whereParams, 'filter');
-            $query->removeParam(Query::WHERE);
-            //dd($query);
-            EntityHelper::setAttributes($filterModel, $filterAttributes);
-            //dd($filterModel);
-            $dataProvider = $this->service->getDataProviderByFilter($query, [], $filterModel);
+        $dataProvider = $this->service->getDataProvider($query);
+        if ($this->filterModel) {
+            $filterAttributes = QueryHelper::getFilterParams($query);
+            $filterModel = EntityHelper::createEntity($this->filterModel, $filterAttributes);
+            $dataProvider->setFilterModel($filterModel);
         } else {
-            $dataProvider = $this->service->getDataProvider($query);
+            $filterModel = null;
         }
         $this->runCallback([$dataProvider]);
         return $this->render('index', [
             'request' => Yii::$app->request,
             'dataProvider' => $dataProvider,
+            'filterModel' => $filterModel,
             'queryParams' => Yii::$app->request->get(),
         ]);
     }
