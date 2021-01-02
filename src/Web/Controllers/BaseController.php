@@ -26,6 +26,7 @@ abstract class BaseController extends Controller
     protected $baseUri;
     protected $formClass;
     protected $entityClass;
+    protected $filterModel = null;
 
     public function actions()
     {
@@ -33,6 +34,7 @@ abstract class BaseController extends Controller
             'index' => [
                 'class' => IndexAction::class,
                 'service' => $this->service,
+                'filterModel' => $this->filterModel,
                 'with' => $this->with(),
                 'sort' => [
                     'id' => SORT_DESC,
