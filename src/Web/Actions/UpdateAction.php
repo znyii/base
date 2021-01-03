@@ -34,6 +34,8 @@ class UpdateAction extends BaseFormAction
                 $errors = FormHelper::setErrorsToModel($model, $e->getErrorCollection());
                 $errorMessage = implode('<br/>', $errors);
                 Alert::create($errorMessage, Alert::TYPE_WARNING);
+            } catch (\DomainException $e) {
+                Alert::create($e->getMessage(), Alert::TYPE_WARNING);
             }
         } else {
             $data = EntityHelper::toArrayForTablize($entity);

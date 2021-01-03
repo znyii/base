@@ -2,10 +2,6 @@
 
 namespace ZnYii\Base\Web\Actions;
 
-use yii\helpers\Url;
-use Yii;
-use ZnCore\Domain\Interfaces\Entity\EntityIdInterface;
-use ZnCore\Domain\Libs\Query;
 use ZnLib\Web\Yii2\Widgets\Toastr\widgets\Alert;
 
 class DeleteAction extends BaseAction
@@ -38,8 +34,12 @@ class DeleteAction extends BaseAction
 
     public function run(int $id)
     {
-        $this->service->deleteById($id);
-        Alert::create($this->getSuccessMessage(), Alert::TYPE_SUCCESS);
+        try {
+            $this->service->deleteById($id);
+            Alert::create($this->getSuccessMessage(), Alert::TYPE_SUCCESS);
+        } catch (\DomainException $e) {
+            Alert::create($e->getMessage(), Alert::TYPE_WARNING);
+        }
         return $this->redirect($this->successRedirectUrl);
     }
 }

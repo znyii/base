@@ -38,8 +38,12 @@ class RestoreAction extends BaseAction
 
     public function run(int $id)
     {
-        $this->service->restoreById($id);
-        Alert::create($this->getSuccessMessage(), Alert::TYPE_SUCCESS);
+        try {
+            $this->service->restoreById($id);
+            Alert::create($this->getSuccessMessage(), Alert::TYPE_SUCCESS);
+        } catch (\DomainException $e) {
+            Alert::create($e->getMessage(), Alert::TYPE_WARNING);
+        }
         return $this->redirect($this->successRedirectUrl);
     }
 }
