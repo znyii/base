@@ -12,6 +12,7 @@ use ZnLib\Web\Widgets\BreadcrumbWidget;
 use ZnYii\Base\Web\Actions\CreateAction;
 use ZnYii\Base\Web\Actions\DeleteAction;
 use ZnYii\Base\Web\Actions\IndexAction;
+use ZnYii\Base\Web\Actions\RestoreAction;
 use ZnYii\Base\Web\Actions\UpdateAction;
 use ZnYii\Base\Web\Actions\ViewAction;
 
@@ -84,6 +85,16 @@ abstract class BaseController extends Controller
         ];
     }
 
+    protected function getRestoreActionConfig(): array
+    {
+        return [
+            'class' => RestoreAction::class,
+            'service' => $this->service,
+            'successMessage' => ['web', 'message.restore_success'],
+            'successRedirectUrl' => [$this->baseUri],
+        ];
+    }
+
     /*public function i18NextConfig(): array
     {
         return [
@@ -92,9 +103,9 @@ abstract class BaseController extends Controller
         ];
     }*/
 
-   /* protected function extractTitleFromEntity(object $entity): string {
-        return $entity->getTitle();
-    }*/
+    /* protected function extractTitleFromEntity(object $entity): string {
+         return $entity->getTitle();
+     }*/
 
     public function with()
     {
