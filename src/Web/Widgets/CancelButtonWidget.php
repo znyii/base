@@ -25,7 +25,6 @@ class CancelButtonWidget extends Widget
         $route = $action->controller->module->id . '/' . $action->controller->id;
         $urlArray = ['/' . $route];
         $urlArray = array_merge($urlArray, Yii::$app->request->queryParams);
-        //dd(Yii::$app->request->queryParams);
         return Url::toRoute($urlArray);
     }
 }
