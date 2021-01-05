@@ -5,6 +5,7 @@ namespace ZnYii\Base\Helpers;
 use yii\helpers\Url;
 use ZnBundle\User\Domain\Interfaces\Entities\IdentityEntityInterface;
 use ZnCore\Base\Enums\StatusEnum;
+use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\Html;
 use ZnCore\Base\Libs\I18Next\Facades\I18Next;
 use ZnCore\Domain\Interfaces\Entity\EntityIdInterface;
@@ -14,14 +15,6 @@ class ActionHelper
 
     const TYPE_LINK = 'link';
     const TYPE_BUTTON = 'button';
-
-    public static function generateRestoreOrDeleteAction(EntityIdInterface $entity, string $baseUrl, string $type) {
-        if($entity->getStatusId() === StatusEnum::DELETED) {
-            return self::generateRestoreAction($entity, $baseUrl, $type);
-        } else {
-            return self::generateDeleteAction($entity, $baseUrl, $type);
-        }
-    }
 
     public static function getUpdateActionOptions(EntityIdInterface $entity, string $baseUrl) {
         $options['href'] = Url::to([$baseUrl . '/update', 'id' => $entity->getId()]);
@@ -55,18 +48,29 @@ class ActionHelper
         return self::generate($options, $type);
     }
 
-    public static function generateUpdateAction(EntityIdInterface $entity, string $baseUrl, string $type) {
+    public static function generateRestoreOrDeleteAction(EntityIdInterface $entity, string $baseUrl, string $type, array $extraOptions = []) {
+        if($entity->getStatusId() === StatusEnum::DELETED) {
+            return self::generateRestoreAction($entity, $baseUrl, $type, $extraOptions);
+        } else {
+            return self::generateDeleteAction($entity, $baseUrl, $type, $extraOptions);
+        }
+    }
+
+    public static function generateUpdateAction(EntityIdInterface $entity, string $baseUrl, string $type, array $extraOptions = []) {
         $options = self::getUpdateActionOptions($entity, $baseUrl);
+        $options = ArrayHelper::merge($options, $extraOptions);
         return self::generate($options, $type);
     }
 
-    public static function generateRestoreAction(EntityIdInterface $entity, string $baseUrl, string $type) {
+    public static function generateRestoreAction(EntityIdInterface $entity, string $baseUrl, string $type, array $extraOptions = []) {
         $options = self::getRestoreActionOptions($entity, $baseUrl);
+        $options = ArrayHelper::merge($options, $extraOptions);
         return self::generate($options, $type);
     }
 
-    public static function generateDeleteAction(EntityIdInterface $entity, string $baseUrl, string $type) {
+    public static function generateDeleteAction(EntityIdInterface $entity, string $baseUrl, string $type, array $extraOptions = []) {
         $options = self::getDeleteActionOptions($entity, $baseUrl);
+        $options = ArrayHelper::merge($options, $extraOptions);
         return self::generate($options, $type);
     }
 
@@ -79,7 +83,10 @@ class ActionHelper
     }
 
     public static function generateButton(array $options) {
-        $options['class'] = "btn";
+        if(empty($options['class'])) {
+            $options['class'] = '';
+        }
+        $options['class'] .= " btn ";
         if(!empty($options['type'])) {
             $options['class'] .= " btn-{$options['type']}";
         }
