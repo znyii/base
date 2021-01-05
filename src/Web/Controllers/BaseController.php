@@ -37,9 +37,9 @@ abstract class BaseController extends Controller
                 'service' => $this->service,
                 'filterModel' => $this->filterModel,
                 'with' => $this->with(),
-                'sort' => [
+                /*'sort' => [
                     'id' => SORT_DESC,
-                ],
+                ],*/
             ],
             'create' => [
                 'class' => CreateAction::class,
