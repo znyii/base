@@ -1,6 +1,5 @@
 <?php
 
-//namespace Packages\Shop\Yii2\Web\Controllers;
 namespace ZnYii\Base\Web\Controllers;
 
 use yii\helpers\Url;
