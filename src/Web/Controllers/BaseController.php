@@ -27,6 +27,7 @@ abstract class BaseController extends Controller
     protected $formClass;
     protected $entityClass;
     protected $filterModel = null;
+    public $baseViewAlias = '';
 
     public function actions()
     {

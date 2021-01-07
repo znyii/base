@@ -45,7 +45,7 @@ abstract class BaseAction extends Action
 
     protected function render($view, $params = [])
     {
-        return $this->controller->render($view, $params);
+        return $this->controller->render($this->controller->baseViewAlias . $view, $params);
     }
 
     protected function redirect($url, $statusCode = 302) {
