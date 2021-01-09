@@ -28,6 +28,7 @@ abstract class BaseController extends Controller
     protected $entityClass;
     protected $filterModel = null;
     public $baseViewAlias = '';
+    protected $defaultPerPage = 10;
 
     public function actions()
     {
@@ -37,6 +38,7 @@ abstract class BaseController extends Controller
                 'service' => $this->service,
                 'filterModel' => $this->filterModel,
                 'with' => $this->with(),
+                'defaultPerPage' => $this->defaultPerPage,
                 /*'sort' => [
                     'id' => SORT_DESC,
                 ],*/

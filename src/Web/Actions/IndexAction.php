@@ -19,6 +19,7 @@ class IndexAction extends BaseAction
 
     private $with = [];
     private $filterModel;
+    private $defaultPerPage = 10;
 
     public function setFilterModel(?string $filterModel): void
     {
@@ -30,9 +31,17 @@ class IndexAction extends BaseAction
         $this->with = $with;
     }
 
+    public function setDefaultPerPage(int $defaultPerPage): void
+    {
+        $this->defaultPerPage = $defaultPerPage;
+    }
+
     public function run()
     {
         $query = QueryHelper::getAllParams(Yii::$app->request->get());
+        if(Yii::$app->request->get('per-page') == null) {
+            $query->perPage($this->defaultPerPage);
+        }
         $query->with($this->with);
         $dataProvider = $this->service->getDataProvider($query);
         if ($this->filterModel) {
