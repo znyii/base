@@ -2,17 +2,12 @@
 
 namespace ZnYii\Base\Web\Actions;
 
+use Yii;
 use yii\web\BadRequestHttpException;
-use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
-use ZnCore\Domain\Exceptions\BadFilterValidateException;
 use ZnCore\Domain\Exceptions\UnprocessibleEntityException;
 use ZnCore\Domain\Helpers\EntityHelper;
 use ZnCore\Domain\Helpers\QueryHelper;
-use Yii;
 use ZnCore\Domain\Helpers\ValidationHelper;
-use ZnCore\Domain\Interfaces\Entity\ValidateEntityInterface;
-use ZnCore\Domain\Interfaces\Service\ServiceDataProviderByFilterInterface;
-use ZnCore\Domain\Libs\Query;
 
 class IndexAction extends BaseAction
 {
