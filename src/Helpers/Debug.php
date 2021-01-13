@@ -8,6 +8,7 @@ use yii2rails\extension\store\Store;
 use yii2rails\extension\web\helpers\Page;
 use ZnCore\Base\Enums\Measure\TimeEnum;
 use ZnCore\Base\Helpers\EnumHelper;
+use ZnCore\Base\Helpers\EnvHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\FileHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\Html;
@@ -32,7 +33,7 @@ class Debug
         if (!empty($url) && strpos($url, '/debug/') !== false) {
             return null;
         }
-        $file = Yii::getAlias('@runtime/logs/debug') . DS . date('Y-m-d', TIMESTAMP) . '.log';
+        $file = Yii::getAlias('@runtime/logs/debug') . DIRECTORY_SEPARATOR . date('Y-m-d', TIMESTAMP) . '.log';
         if (file_exists($file)) {
             $log = FileHelper::load($file);
         } else {
@@ -46,7 +47,7 @@ class Debug
         if (self::$isLogged) {
             $log .= PHP_EOL . PHP_EOL . ' ------ ' . PHP_EOL . PHP_EOL;
         } else {
-            $spliter = SPC . str_repeat('=', 30) . SPC;
+            $spliter = ' ' . str_repeat('=', 30) . ' ';
             $log .= PHP_EOL . PHP_EOL . $spliter . date('H-i-s', TIMESTAMP) . $spliter . PHP_EOL . PHP_EOL;
         }
         $log .= $content;
@@ -86,12 +87,12 @@ class Debug
                 exit;
             }
         }
-        if (APP != CONSOLE) {
+        if (!EnvHelper::isConsole()) {
             $val = Html::recursiveHtmlEntities($val);
         }
         $store = new Store('php');
         $content = $store->encode($val);
-        if (APP != CONSOLE && APP != API) {
+        if (!EnvHelper::isConsole() && APP != API) {
             $content = '<pre style="font-size: 8pt;">' . $content . '</pre>';
         }
         if ($exit) {
@@ -103,7 +104,7 @@ class Debug
 
     private static function showContent($content)
     {
-        if (APP == CONSOLE) {
+        if (EnvHelper::isConsole()) {
             echo $content;
             exit;
         }
