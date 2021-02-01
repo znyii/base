@@ -1,4 +1,5 @@
 {
+  "save_success": "Успешно сохранено!",
   "delete_success": "Запись удалена!",
   "restore_success": "Запись восстановлена!",
   "change_status_success": "Статус изменен!",
