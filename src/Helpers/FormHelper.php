@@ -11,7 +11,9 @@ use ZnCore\Base\Helpers\ClassHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\Inflector;
 use ZnCore\Domain\Helpers\EntityHelper;
+use ZnCore\Domain\Interfaces\Entity\ScenarioInterface;
 use ZnYii\Base\Base\DynamicForm;
+use ZnYii\Base\Enums\ScenarionEnum;
 
 class FormHelper
 {
@@ -20,7 +22,7 @@ class FormHelper
      * @param string $formClass
      * @return object | DynamicForm
      */
-    public static function createFormByClass(string $formClass): object
+    public static function createFormByClass(string $formClass, string $scenario = ScenarionEnum::CREATE): object
     {
         $instance = Container::getInstance()->get($formClass);
         if($instance instanceof Model) {
@@ -29,6 +31,12 @@ class FormHelper
             /** @var DynamicForm $model */
             $model = FormHelper::createModelByForm($instance);
             $model->setFormInstance($instance);
+        }
+        if($model instanceof DynamicForm) {
+            $form = $model->getFormInstance();
+            if($form instanceof ScenarioInterface) {
+                $form->setScenario($scenario);
+            }
         }
         return $model;
     }
