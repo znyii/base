@@ -2,19 +2,61 @@
 
 namespace ZnYii\Base\Helpers;
 
+use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
+use Yii;
 use yii\base\Model;
+use yii\web\UploadedFile;
 use ZnCore\Base\Helpers\ClassHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\Inflector;
 use ZnCore\Domain\Helpers\EntityHelper;
+use ZnYii\Base\Base\DynamicForm;
 
 class FormHelper
 {
 
+    /**
+     * @param string $formClass
+     * @return object | DynamicForm
+     */
+    public static function createFormByClass(string $formClass): object
+    {
+        $instance = Container::getInstance()->get($formClass);
+        if($instance instanceof Model) {
+            $model = $instance;
+        } else {
+            /** @var DynamicForm $model */
+            $model = FormHelper::createModelByForm($instance);
+            $model->setFormInstance($instance);
+        }
+        return $model;
+    }
+
+    public static function createModelByForm(object $form): DynamicForm
+    {
+        $model = new DynamicForm(EntityHelper::getAttributeNames($form));
+        if (Yii::$app->request->isPost) {
+            $postData = Yii::$app->request->post($model->formName());
+            FormHelper::setAttributes($model, $postData);
+            EntityHelper::setAttributes($form, $model->toArray([], [], false));
+        }
+        if(method_exists($form, 'i18NextConfig')) {
+            $model->setI18NextConfig($form->i18NextConfig());
+        }
+        return $model;
+    }
+
     public static function setAttributes(Model $model, array $data)
     {
         $attributes = $model->attributes();
+        foreach ($attributes as $attribute) {
+            $file = UploadedFile::getInstance($model, $attribute);
+            if ($file) {
+                $data[$attribute] = \Packages\Storage\Domain\Helpers\UploadHelper::getSymfonyUploadedFileFromYii($file);
+//                $data[$attribute] = $file;
+            }
+        }
         $data = ArrayHelper::filter($data, $attributes);
         ClassHelper::configure($model, $data);
     }
