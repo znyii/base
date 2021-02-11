@@ -14,6 +14,7 @@ use ZnCore\Domain\Helpers\EntityHelper;
 use ZnCore\Domain\Interfaces\Entity\ScenarioInterface;
 use ZnYii\Base\Base\DynamicForm;
 use ZnYii\Base\Enums\ScenarionEnum;
+use Symfony\Component\HttpFoundation\File\UploadedFile as SymfonyUploadedFile;
 
 class FormHelper
 {
@@ -59,10 +60,10 @@ class FormHelper
     {
         $attributes = $model->attributes();
         foreach ($attributes as $attribute) {
-            $file = UploadedFile::getInstance($model, $attribute);
-            if ($file) {
-                $data[$attribute] = \Packages\Storage\Domain\Helpers\UploadHelper::getSymfonyUploadedFileFromYii($file);
-//                $data[$attribute] = $file;
+            $uploadedFile = UploadedFile::getInstance($model, $attribute);
+            if ($uploadedFile) {
+//                $data[$attribute] = \Packages\Storage\Domain\Helpers\UploadHelper::getSymfonyUploadedFileFromYii($uploadedFile);
+                $data[$attribute] = new SymfonyUploadedFile($uploadedFile->tempName, $uploadedFile->name, $uploadedFile->type, $uploadedFile->error);
             }
         }
         $data = ArrayHelper::filter($data, $attributes);
