@@ -73,7 +73,7 @@ class FormHelper
     public static function extractAttributesForEntity(Model $model, string $entityClass): array
     {
         $data = $model->toArray();
-        $attributes = EntityHelper::getAttributeNames(new $entityClass);
+        $attributes = EntityHelper::getAttributeNames($entityClass);
         $attributes = array_map([Inflector::class, 'underscore'], $attributes);
         $data = ArrayHelper::filter($data, $attributes);
         $data = ArrayHelper::nullingEmptyItems($data);
