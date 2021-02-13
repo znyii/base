@@ -62,7 +62,7 @@ class FormHelper
         foreach ($attributes as $attribute) {
             $uploadedFile = UploadedFile::getInstance($model, $attribute);
             if ($uploadedFile) {
-//                $data[$attribute] = \Packages\Storage\Domain\Helpers\UploadHelper::getSymfonyUploadedFileFromYii($uploadedFile);
+//                $data[$attribute] = \ZnBundle\Storage\Domain\Helpers\UploadHelper::getSymfonyUploadedFileFromYii($uploadedFile);
                 $data[$attribute] = new SymfonyUploadedFile($uploadedFile->tempName, $uploadedFile->name, $uploadedFile->type, $uploadedFile->error);
             }
         }
