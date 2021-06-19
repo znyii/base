@@ -74,7 +74,8 @@ class FormHelper
     {
         $data = $model->toArray();
         $attributes = EntityHelper::getAttributeNames($entityClass);
-        $attributes = array_map([Inflector::class, 'underscore'], $attributes);
+        $attributesUnderscore = array_map([Inflector::class, 'underscore'], $attributes);
+        $attributes = array_merge($attributes, $attributesUnderscore);
         $data = ArrayHelper::filter($data, $attributes);
         $data = ArrayHelper::nullingEmptyItems($data);
         return $data;
