@@ -4,6 +4,7 @@ namespace ZnYii\Base\Helpers;
 
 use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
+use Symfony\Component\HttpFoundation\File\UploadedFile as SymfonyUploadedFile;
 use Yii;
 use yii\base\Model;
 use yii\web\UploadedFile;
@@ -11,10 +12,8 @@ use ZnCore\Base\Helpers\ClassHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\Inflector;
 use ZnCore\Domain\Helpers\EntityHelper;
-use ZnCore\Domain\Interfaces\Entity\ScenarioInterface;
 use ZnYii\Base\Base\DynamicForm;
 use ZnYii\Base\Enums\ScenarionEnum;
-use Symfony\Component\HttpFoundation\File\UploadedFile as SymfonyUploadedFile;
 
 class FormHelper
 {
@@ -26,18 +25,18 @@ class FormHelper
     public static function createFormByClass(string $formClass, string $scenario = ScenarionEnum::CREATE): object
     {
         $instance = Container::getInstance()->get($formClass);
-        if($instance instanceof Model) {
+        if ($instance instanceof Model) {
             $model = $instance;
         } else {
             /** @var DynamicForm $model */
             $model = FormHelper::createModelByForm($instance);
             $model->setFormInstance($instance);
         }
-        if($model instanceof DynamicForm) {
+        if ($model instanceof DynamicForm) {
             $form = $model->getFormInstance();
-            if($form instanceof ScenarioInterface) {
+            /*if($form instanceof ScenarioInterface) {
                 $form->setScenario($scenario);
-            }
+            }*/
         }
         return $model;
     }
@@ -50,7 +49,7 @@ class FormHelper
             FormHelper::setAttributes($model, $postData);
             EntityHelper::setAttributes($form, $model->toArray([], [], false));
         }
-        if(method_exists($form, 'i18NextConfig')) {
+        if (method_exists($form, 'i18NextConfig')) {
             $model->setI18NextConfig($form->i18NextConfig());
         }
         return $model;
