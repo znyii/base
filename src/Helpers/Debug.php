@@ -12,6 +12,7 @@ use ZnCore\Base\Helpers\EnvHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\FileHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\Html;
+use ZnCore\Base\Libs\FileSystem\Helpers\FileStorageHelper;
 
 class Debug
 {
@@ -35,7 +36,7 @@ class Debug
         }
         $file = Yii::getAlias('@runtime/logs/debug') . DIRECTORY_SEPARATOR . date('Y-m-d', TIMESTAMP) . '.log';
         if (file_exists($file)) {
-            $log = FileHelper::load($file);
+            $log = FileStorageHelper::load($file);
         } else {
             $log = '';
         }
@@ -51,7 +52,7 @@ class Debug
             $log .= PHP_EOL . PHP_EOL . $spliter . date('H-i-s', TIMESTAMP) . $spliter . PHP_EOL . PHP_EOL;
         }
         $log .= $content;
-        FileHelper::save($file, $log);
+        FileStorageHelper::save($file, $log);
         self::$isLogged = true;
     }
 
