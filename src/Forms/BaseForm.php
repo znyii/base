@@ -3,8 +3,8 @@
 namespace ZnYii\Base\Forms;
 
 use yii\base\Model;
-use ZnCore\Base\Libs\Arr\Helpers\ArrayHelper;
-use ZnCore\Base\Libs\I18Next\Facades\I18Next;
+use ZnCore\Base\Arr\Helpers\ArrayHelper;
+use ZnCore\Base\I18Next\Facades\I18Next;
 
 abstract class BaseForm extends Model
 {

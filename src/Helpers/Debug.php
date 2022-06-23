@@ -7,11 +7,11 @@ use yii\bootstrap\BootstrapAsset;
 use yii2rails\extension\store\Store;
 use yii2rails\extension\web\helpers\Page;
 use ZnLib\Web\Helpers\Html;
-use ZnCore\Base\Libs\App\Helpers\EnvHelper;
-use ZnCore\Base\Libs\Arr\Helpers\ArrayHelper;
-use ZnCore\Base\Libs\Enum\Helpers\EnumHelper;
-use ZnCore\Base\Libs\FileSystem\Helpers\FileStorageHelper;
-use ZnCore\Base\Libs\Measure\Enums\TimeEnum;
+use ZnCore\Base\App\Helpers\EnvHelper;
+use ZnCore\Base\Arr\Helpers\ArrayHelper;
+use ZnCore\Base\Enum\Helpers\EnumHelper;
+use ZnCore\Base\FileSystem\Helpers\FileStorageHelper;
+use ZnCore\Base\Measure\Enums\TimeEnum;
 
 class Debug
 {
