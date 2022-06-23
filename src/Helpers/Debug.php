@@ -6,7 +6,7 @@ use Yii;
 use yii\bootstrap\BootstrapAsset;
 use yii2rails\extension\store\Store;
 use yii2rails\extension\web\helpers\Page;
-use ZnCore\Base\Enums\Measure\TimeEnum;
+use ZnCore\Base\Libs\Measure\Enums\TimeEnum;
 use ZnCore\Base\Libs\Enum\Helpers\EnumHelper;
 use ZnCore\Base\Libs\App\Helpers\EnvHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;

@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile as SymfonyUploadedFile;
 use Yii;
 use yii\base\Model;
 use yii\web\UploadedFile;
-use ZnCore\Base\Helpers\ClassHelper;
+use ZnCore\Base\Libs\Instance\Helpers\ClassHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\Inflector;
 use ZnCore\Base\Libs\Container\Helpers\ContainerHelper;

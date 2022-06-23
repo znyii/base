@@ -4,7 +4,7 @@ namespace ZnYii\Base\Helpers;
 
 use yii\helpers\Url;
 use ZnBundle\User\Domain\Interfaces\Entities\IdentityEntityInterface;
-use ZnCore\Base\Enums\StatusEnum;
+use ZnCore\Base\Libs\Status\Enums\StatusEnum;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\Html;
 use ZnCore\Base\Libs\I18Next\Facades\I18Next;
