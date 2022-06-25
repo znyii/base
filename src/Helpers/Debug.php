@@ -11,7 +11,7 @@ use ZnCore\Base\Env\Helpers\EnvHelper;
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
 use ZnCore\Base\Enum\Helpers\EnumHelper;
 use ZnCore\Base\FileSystem\Helpers\FileStorageHelper;
-use ZnCore\Base\Time\Enums\TimeEnum;
+use ZnLib\Components\Time\Enums\TimeEnum;
 
 class Debug
 {

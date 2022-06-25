@@ -4,10 +4,10 @@ namespace ZnYii\Base\Helpers;
 
 use yii\helpers\Url;
 use ZnBundle\User\Domain\Interfaces\Entities\IdentityEntityInterface;
-use ZnCore\Base\Status\Enums\StatusEnum;
+use ZnLib\Components\Status\Enums\StatusEnum;
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
 use ZnLib\Web\Helpers\Html;
-use ZnCore\Base\I18Next\Facades\I18Next;
+use ZnLib\Components\I18Next\Facades\I18Next;
 use ZnCore\Domain\Interfaces\Entity\EntityIdInterface;
 
 /**

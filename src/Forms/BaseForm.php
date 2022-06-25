@@ -4,7 +4,7 @@ namespace ZnYii\Base\Forms;
 
 use yii\base\Model;
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
-use ZnCore\Base\I18Next\Facades\I18Next;
+use ZnLib\Components\I18Next\Facades\I18Next;
 
 abstract class BaseForm extends Model
 {
