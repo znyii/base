@@ -6,7 +6,7 @@ use Yii;
 use yii\bootstrap\BootstrapAsset;
 use yii2rails\extension\store\Store;
 use yii2rails\extension\web\helpers\Page;
-use ZnLib\Web\Helpers\Html;
+use ZnLib\Web\Components\Html\Helpers\Html;
 use ZnCore\Base\Env\Helpers\EnvHelper;
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
 use ZnCore\Base\Enum\Helpers\EnumHelper;
