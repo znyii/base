@@ -3,7 +3,7 @@
 namespace ZnYii\Base\Helpers;
 
 use yii\helpers\Url;
-use ZnBundle\User\Domain\Interfaces\Entities\IdentityEntityInterface;
+use ZnUser\Confirm\Domain\Interfaces\Entities\IdentityEntityInterface;
 use ZnLib\Components\Status\Enums\StatusEnum;
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
 use ZnLib\Web\Html\Helpers\Html;
