@@ -3,7 +3,7 @@
 namespace ZnYii\Base\Helpers;
 
 use Illuminate\Container\Container;
-use Illuminate\Support\Collection;
+use ZnCore\Domain\Collection\Libs\Collection;
 use Symfony\Component\HttpFoundation\File\UploadedFile as SymfonyUploadedFile;
 use Yii;
 use yii\base\Model;
