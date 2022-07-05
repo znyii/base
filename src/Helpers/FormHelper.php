@@ -2,16 +2,16 @@
 
 namespace ZnYii\Base\Helpers;
 
-use ZnCore\Base\Container\Libs\Container;
-use ZnCore\Domain\Collection\Libs\Collection;
 use Symfony\Component\HttpFoundation\File\UploadedFile as SymfonyUploadedFile;
 use Yii;
 use yii\base\Model;
 use yii\web\UploadedFile;
-use ZnCore\Base\Instance\Helpers\ClassHelper;
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
-use ZnCore\Base\Text\Helpers\Inflector;
 use ZnCore\Base\Container\Helpers\ContainerHelper;
+use ZnCore\Base\Instance\Helpers\ClassHelper;
+use ZnCore\Base\Text\Helpers\Inflector;
+use ZnCore\Domain\Collection\Interfaces\Enumerable;
+use ZnCore\Domain\Collection\Libs\Collection;
 use ZnCore\Domain\Entity\Helpers\EntityHelper;
 use ZnYii\Base\Base\DynamicForm;
 use ZnYii\Base\Enums\ScenarionEnum;
@@ -81,7 +81,7 @@ class FormHelper
         return $data;
     }
 
-    public static function setErrorsToModel(Model $model, Collection $errorCollection): array
+    public static function setErrorsToModel(Model $model, Enumerable $errorCollection): array
     {
         $errors = [];
         foreach ($errorCollection as $errorEntity) {
