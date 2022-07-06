@@ -7,11 +7,11 @@ use Yii;
 use yii\base\Model;
 use yii\web\UploadedFile;
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
-use ZnCore\Base\Container\Helpers\ContainerHelper;
+use ZnCore\Container\Helpers\ContainerHelper;
 use ZnCore\Base\Instance\Helpers\ClassHelper;
-use ZnCore\Base\Text\Helpers\Inflector;
-use ZnCore\Domain\Collection\Interfaces\Enumerable;
-use ZnCore\Domain\Entity\Helpers\EntityHelper;
+use ZnCore\Text\Helpers\Inflector;
+use ZnCore\Collection\Interfaces\Enumerable;
+use ZnCore\Entity\Helpers\EntityHelper;
 use ZnYii\Base\Base\DynamicForm;
 use ZnYii\Base\Enums\ScenarionEnum;
 
