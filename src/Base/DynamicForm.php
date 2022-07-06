@@ -3,7 +3,7 @@
 namespace ZnYii\Base\Base;
 
 use yii\base\DynamicModel;
-use ZnCore\Base\Arr\Helpers\ArrayHelper;
+use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnLib\Components\I18Next\Facades\I18Next;
 
 class DynamicForm extends DynamicModel

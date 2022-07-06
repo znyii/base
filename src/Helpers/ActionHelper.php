@@ -5,7 +5,7 @@ namespace ZnYii\Base\Helpers;
 use yii\helpers\Url;
 use ZnUser\Confirm\Domain\Interfaces\Entities\IdentityEntityInterface;
 use ZnLib\Components\Status\Enums\StatusEnum;
-use ZnCore\Base\Arr\Helpers\ArrayHelper;
+use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnLib\Web\Html\Helpers\Html;
 use ZnLib\Components\I18Next\Facades\I18Next;
 use ZnCore\Domain\Interfaces\Entity\EntityIdInterface;
