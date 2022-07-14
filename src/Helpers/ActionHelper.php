@@ -8,7 +8,7 @@ use ZnLib\Components\Status\Enums\StatusEnum;
 use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnLib\Web\Html\Helpers\Html;
 use ZnLib\I18Next\Facades\I18Next;
-use ZnCore\Domain\Interfaces\Entity\EntityIdInterface;
+use ZnDomain\Domain\Interfaces\Entity\EntityIdInterface;
 
 /**
  * Class ActionHelper
