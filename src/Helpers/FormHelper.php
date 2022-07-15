@@ -11,7 +11,7 @@ use ZnCore\Container\Helpers\ContainerHelper;
 use ZnCore\Instance\Helpers\ClassHelper;
 use ZnCore\Text\Helpers\Inflector;
 use ZnCore\Collection\Interfaces\Enumerable;
-use ZnCore\Entity\Helpers\EntityHelper;
+use ZnDomain\Entity\Helpers\EntityHelper;
 use ZnYii\Base\Base\DynamicForm;
 use ZnYii\Base\Enums\ScenarionEnum;
 
