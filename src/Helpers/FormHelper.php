@@ -77,7 +77,17 @@ class FormHelper
         $attributesUnderscore = array_map([Inflector::class, 'underscore'], $attributes);
         $attributes = array_merge($attributes, $attributesUnderscore);
         $data = ArrayHelper::filter($data, $attributes);
-        $data = ArrayHelper::nullingEmptyItems($data);
+        $data = self::nullingEmptyItems($data);
+        return $data;
+    }
+
+    public static function nullingEmptyItems(array $data): array
+    {
+        foreach ($data as $key => $value) {
+            if (empty($value) && $value !== false && $value != 0) {
+                $data[$key] = null;
+            }
+        }
         return $data;
     }
 
