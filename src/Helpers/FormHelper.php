@@ -7,10 +7,11 @@ use Yii;
 use yii\base\Model;
 use yii\web\UploadedFile;
 use ZnCore\Arr\Helpers\ArrayHelper;
+use ZnCore\Code\Helpers\PropertyHelper;
+use ZnCore\Collection\Interfaces\Enumerable;
 use ZnCore\Container\Helpers\ContainerHelper;
 use ZnCore\Instance\Helpers\ClassHelper;
 use ZnCore\Text\Helpers\Inflector;
-use ZnCore\Collection\Interfaces\Enumerable;
 use ZnDomain\Entity\Helpers\EntityHelper;
 use ZnYii\Base\Base\DynamicForm;
 use ZnYii\Base\Enums\ScenarionEnum;
@@ -47,7 +48,7 @@ class FormHelper
         if (Yii::$app->request->isPost) {
             $postData = Yii::$app->request->post($model->formName());
             FormHelper::setAttributes($model, $postData);
-            EntityHelper::setAttributes($form, $model->toArray([], [], false));
+            PropertyHelper::setAttributes($form, $model->toArray([], [], false));
         }
         if (method_exists($form, 'i18NextConfig')) {
             $model->setI18NextConfig($form->i18NextConfig());
